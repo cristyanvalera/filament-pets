@@ -13,7 +13,9 @@ class Patient extends Model
 
     protected function casts(): array
     {
-        return ['type' => PetType::class];
+        return [
+            'type' => PetType::class,
+        ];
     }
 
     public function owner(): BelongsTo

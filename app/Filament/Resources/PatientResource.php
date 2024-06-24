@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Enums\PetType;
 use App\Filament\Resources\PatientResource\Pages\{ListPatients, CreatePatient, EditPatient};
+use App\Filament\Resources\PatientResource\RelationManagers\TreatmentsRelationManager;
 use App\Models\Patient;
 use Filament\Forms\Components\{DatePicker, Select, TextInput};
 use Filament\Forms\Form;
@@ -57,7 +58,7 @@ class PatientResource extends Resource
                 TextColumn::make('type')->label('Especie'),
                 TextColumn::make('date_of_birth')
                     ->label('Fecha de naciemiento')
-                    ->date('d/m/Y, H:m:s')
+                    ->dateTime()
                     ->sortable(),
                 TextColumn::make('owner.name')->label('Dueño')->searchable(),
             ])
@@ -77,7 +78,7 @@ class PatientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TreatmentsRelationManager::class,
         ];
     }
 

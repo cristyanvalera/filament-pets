@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\PatientResource\RelationManagers;
 
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\{Textarea, TextInput};
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\{BulkActionGroup, CreateAction, DeleteAction, DeleteBulkAction, EditAction};
@@ -19,7 +19,15 @@ class TreatmentsRelationManager extends RelationManager
             ->schema([
                 TextInput::make('description')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->columnSpanFull(),
+                Textarea::make('notes')
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
+                TextInput::make('price')
+                    ->numeric()
+                    ->prefix('$')
+                    ->maxValue(42949672.95),
             ]);
     }
 
@@ -29,6 +37,10 @@ class TreatmentsRelationManager extends RelationManager
             ->recordTitleAttribute('description')
             ->columns([
                 TextColumn::make('description'),
+                TextColumn::make('price')
+                    ->money('USD')
+                    ->sortable(),
+                TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //

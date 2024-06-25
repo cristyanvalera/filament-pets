@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'cristyanvalera@test.com',
         ]);
 
-        Patient::factory(9)->create();
+        Patient::factory(100)->create();
     }
 }

@@ -11,17 +11,10 @@ class PatientTypeOverview extends BaseWidget
 {
     protected function getStats(): array
     {
-        $stats = [];
-
-        foreach (PetType::cases() as $pet) {
-            $stats[] = Stat::make(
+        return collect(PetType::cases())
+            ->map(fn (PetType $pet) => Stat::make(
                 label: $pet->name,
-                value: Patient::query()
-                    ->where('type', $pet)
-                    ->count(),
-            );
-        }
-
-        return $stats;
+                value: Patient::query()->where('type', $pet)->count(),
+            ))->toArray();
     }
 }
